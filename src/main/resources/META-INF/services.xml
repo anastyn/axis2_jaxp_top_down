@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceGroup>
+    <service name="PurchaseOrderService" class="com.github.anastyn.PurchaseOrderServiceLifecycle">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.github.anastyn.PurchaseOrderServiceMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">com.github.anastyn.PurchaseOrderService</parameter>
+        <parameter name="ServiceTCCL">composite</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <parameter name="EnableChildFirstClassLoading">true</parameter>
+        <operation name="PurchaseOrder" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://com.github.anastyn/v1.0">
+            <actionMapping>http://com.github.anastyn/PurchaseOrder</actionMapping>
+            <outputActionMapping>http://com.github.anastyn/v1.0/PurchaseOrderServicePortType/PurchaseOrderResponse</outputActionMapping>
+        </operation>
+    </service>
+</serviceGroup>

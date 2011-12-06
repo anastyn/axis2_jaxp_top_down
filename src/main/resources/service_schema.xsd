@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://com.github.anastyn/schema/v1.0">
+
+    <xsd:element name="PurchaseOrderRequest">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="productId" type="xsd:int"/>
+                <xsd:element name="quantity" type="xsd:int"/>
+                <xsd:element name="timestamp" type="xsd:dateTime" minOccurs="0"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="PurchaseOrderResponse">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="status" type="xsd:string"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

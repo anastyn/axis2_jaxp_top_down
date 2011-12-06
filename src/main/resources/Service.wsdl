@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://com.github.anastyn/v1.0"
+                  xmlns:ss="http://com.github.anastyn/schema/v1.0"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  name="PurchaseOrderService"
+                  targetNamespace="http://com.github.anastyn/v1.0">
+
+    <wsdl:types>
+       <xsd:schema>
+				<xsd:import namespace="http://com.github.anastyn/schema/v1.0" schemaLocation="service_schema.xsd"/>
+		</xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="PurchaseOrderRequest">
+		<wsdl:part name="body" element="ss:PurchaseOrderRequest" />
+	</wsdl:message>
+	<wsdl:message name="PurchaseOrderResponse">
+		<wsdl:part name="body" element="ss:PurchaseOrderResponse"/>
+	</wsdl:message>
+
+    <wsdl:portType name="PurchaseOrderServicePortType">
+        <wsdl:operation name="PurchaseOrder">
+			<wsdl:input message="tns:PurchaseOrderRequest"></wsdl:input>
+			<wsdl:output message="tns:PurchaseOrderResponse"></wsdl:output>
+		</wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="PurchaseOrderBinding" type="tns:PurchaseOrderServicePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="PurchaseOrder">
+			<soap:operation
+				soapAction="http://com.github.anastyn/PurchaseOrder" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="PurchaseOrderService">
+		<wsdl:port name="PurchaseOrderServicePort" binding="tns:PurchaseOrderBinding" >
+			<soap:address location="http://com.github.anastyn/soap/" />
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

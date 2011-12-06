@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>axis2_jaxp_top_down</groupId>
+    <artifactId>axis2_jaxp_top_down</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <jaxb2.basics.version>0.6.2</jaxb2.basics.version>
+        <jaxb2.basics.annotate.version>0.6.3</jaxb2.basics.annotate.version>
+        <javax.validation.version>1.0.0.GA</javax.validation.version>
+        <jaxb.version>2.2.4-1</jaxb.version>
+        <jaxb.api.version>2.2.3</jaxb.api.version>
+        <apache.axis2.version>1.6.1</apache.axis2.version>
+        <hibernate.validator.version>4.2.0.Final</hibernate.validator.version>
+        <joda.time.version>2.0</joda.time.version>
+    </properties>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-wsdl2code-maven-plugin</artifactId>
+                <version>${apache.axis2.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate service skeleton</id>
+                        <phase>generate-sources</phase>
+                        <inherited>false</inherited>
+                        <goals>
+                            <goal>wsdl2code</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>com.github.anastyn</packageName>
+                            <generateAllClasses>false</generateAllClasses>
+                            <generateServerSide>true</generateServerSide>
+                            <!-- JAXB databinding -->
+                            <databindingName>jaxbri</databindingName>
+                            <generateServerSideInterface>true</generateServerSideInterface>
+                            <!-- Usign custom services.xml -->
+                            <generateServicesXml>false</generateServicesXml>
+                            <wsdlFile>${project.basedir}/src/main/resources/Service.wsdl</wsdlFile>
+                            <!-- <unwrap>true</unwrap> -->
+                            <namespaceURIs>
+                                <namespaceURI>
+                                    <uri>http://com.github.anastyn/schema/v1.0</uri>
+                                    <packageName>com.github.anastyn.schema</packageName>
+                                </namespaceURI>
+                            </namespaceURIs>
+                            <options>
+                                <property>
+                                    <name>bindingFileName</name>
+                                    <value>${project.basedir}/src/main/resources/binding.xjb</value>
+                                </property>
+                                <!-- generate toString methods -->
+                                <property>
+                                    <name>XtoString</name>
+                                    <value>empty</value>
+                                </property>
+                                <!-- generate equals methods -->
+                                <property>
+                                    <name>Xequals</name>
+                                    <value>empty</value>
+                                </property>
+                                <!-- generate hashCode methods -->
+                                <property>
+                                    <name>XhashCode</name>
+                                    <value>empty</value>
+                                </property>
+                                <!-- inheritance support -->
+                                <property>
+                                    <name>Xinheritance</name>
+                                    <value>empty</value>
+                                </property>
+                                <!-- custom annotations support -->
+                                <property>
+                                    <name>Xannotate</name>
+                                    <value>empty</value>
+                                </property>
+                            </options>
+                        </configuration>
+                    </execution>
+                </executions>
+                <!-- plugin dependencies -->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.axis2</groupId>
+                        <artifactId>axis2-jaxbri</artifactId>
+                        <version>${apache.axis2.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.axis2</groupId>
+                        <artifactId>axis2-codegen</artifactId>
+                        <version>${apache.axis2.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jvnet.jaxb2_commons</groupId>
+                        <artifactId>jaxb2-basics</artifactId>
+                        <version>${jaxb2.basics.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jvnet.jaxb2_commons</groupId>
+                        <artifactId>jaxb2-basics-annotate</artifactId>
+                        <version>${jaxb2.basics.annotate.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.xml.bind</groupId>
+                        <artifactId>jaxb-impl</artifactId>
+                        <version>${jaxb.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.xml.bind</groupId>
+                        <artifactId>jaxb-xjc</artifactId>
+                        <version>${jaxb.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                        <version>${javax.validation.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.hibernate</groupId>
+                        <artifactId>hibernate-validator</artifactId>
+                        <version>${hibernate.validator.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-aar-maven-plugin</artifactId>
+                <version>${apache.axis2.version}</version>
+                <executions>
+                    <execution>
+                        <id>Generate PurchaseOrder axis archive</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>aar</goal>
+                        </goals>
+                        <configuration>
+                            <servicesXmlFile>${project.basedir}/src/main/resources/META-INF/services.xml</servicesXmlFile>
+                            <wsdlFile>${project.basedir}/src/main/resources/Service.wsdl</wsdlFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${javax.validation.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jvnet.jaxb2_commons</groupId>
+            <artifactId>jaxb2-basics-runtime</artifactId>
+            <version>${jaxb2.basics.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-kernel</artifactId>
+            <version>${apache.axis2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-transport-local</artifactId>
+            <version>${apache.axis2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-transport-http</artifactId>
+            <version>${apache.axis2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-adb-codegen</artifactId>
+            <version>${apache.axis2.version}</version>
+        </dependency>
+        <dependency>
+    	    <groupId>joda-time</groupId>
+    	    <artifactId>joda-time</artifactId>
+    	    <version>${joda.time.version}</version>
+	    </dependency>
+    </dependencies>
+</project>

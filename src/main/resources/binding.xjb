@@ -1,0 +1,56 @@
+<jaxb:bindings
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+	xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+	xmlns:annox="http://annox.dev.java.net"
+	jaxb:extensionBindingPrefixes="inheritance xjc annox"
+	version="2.1">
+
+    <jaxb:globalBindings>
+        <!-- Generate java.util.Date class instead of javax.xml.datatype.XMLGregorianCalendar -->
+         <jaxb:javaType name="java.util.Date" xmlType="xsd:dateTime"
+						parseMethod="com.github.anastyn.DateBinder.parseDateTime"
+						printMethod="com.github.anastyn.DateBinder.printDateTime"/>
+        <jaxb:javaType name="java.lang.Integer" xmlType="xsd:int"/>
+    </jaxb:globalBindings>
+
+    <jaxb:bindings schemaLocation="service_schema.xsd" node="/xsd:schema">
+        <!--javax.validation.constraints.NotNull annotation for required elements -->
+        <jaxb:bindings node="//xsd:complexType/xsd:all/xsd:element[(not(@minOccurs) or @minOccurs='1')]" multiple="true" required="false">
+            <annox:annotate target="field">
+                <annox:annotate annox:class="javax.validation.constraints.NotNull"/>
+            </annox:annotate>
+        </jaxb:bindings>
+
+        <!--javax.validation.constraints.Size annotation for list types that require at least one element -->
+        <jaxb:bindings node="//xsd:complexType/xsd:all/xsd:element[(not(@minOccurs) or @minOccurs='1') and @maxOccurs='unbounded']" multiple="true" required="false">
+            <annox:annotate target="field">
+                <annox:annotate annox:class="javax.validation.constraints.Size" min="1"/>
+            </annox:annotate>
+        </jaxb:bindings>
+
+        <!-- javax.validation.Valid annotation to validate nested complex elements -->
+        <jaxb:bindings node="//xsd:complexType/xsd:sequence/xsd:element[starts-with(@type, 'tns:')]" multiple="true" required="false">
+            <annox:annotate target="field">
+                <annox:annotate annox:class="javax.validation.Valid"/>
+            </annox:annotate>
+        </jaxb:bindings>
+
+         <!-- integer and long types must be positive -->
+        <jaxb:bindings node="//xsd:complexType/xsd:sequence/xsd:element[(@type='xsd:int' or @type='xsd:long') and (not(@maxOccurs) or @maxOccurs!='unbounded')]" multiple="true" required="false">
+            <annox:annotate target="field">
+                <annox:annotate annox:class="javax.validation.constraints.Min" value="0"/>
+            </annox:annotate>
+        </jaxb:bindings>
+
+        <!--org.hibernate.validator.constraints.NotBlank annotation for required string elements -->
+        <jaxb:bindings node="//xsd:complexType/xsd:sequence/xsd:element[(not(@minOccurs) or @minOccurs='1') and @type='xsd:string' and (not(@maxOccurs) or @maxOccurs!='unbounded')]" multiple="true" required="false">
+            <annox:annotate target="field">
+                <annox:annotate annox:class="org.hibernate.validator.constraints.NotBlank"/>
+            </annox:annotate>
+        </jaxb:bindings>
+
+    </jaxb:bindings>
+
+</jaxb:bindings>
