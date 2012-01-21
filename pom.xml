@@ -53,6 +53,7 @@
                             <!-- JAXB databinding -->
                             <databindingName>jaxbri</databindingName>
                             <generateServerSideInterface>true</generateServerSideInterface>
+                            <outputDirectory>target/generated-sources</outputDirectory>
                             <!-- Usign custom services.xml -->
                             <generateServicesXml>false</generateServicesXml>
                             <wsdlFile>${project.basedir}/src/main/resources/Service.wsdl</wsdlFile>
