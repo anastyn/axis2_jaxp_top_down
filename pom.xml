@@ -157,6 +157,7 @@
                         <configuration>
                             <servicesXmlFile>${project.basedir}/src/main/resources/META-INF/services.xml</servicesXmlFile>
                             <wsdlFile>${project.basedir}/src/main/resources/Service.wsdl</wsdlFile>
+                            <classesDirectory>target/generated-sources</classesDirectory>
                         </configuration>
                     </execution>
                 </executions>
