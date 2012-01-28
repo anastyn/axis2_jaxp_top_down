@@ -7,7 +7,7 @@
     <groupId>axis2_jaxp_top_down</groupId>
     <artifactId>axis2_jaxp_top_down</artifactId>
     <version>1.0</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -56,7 +56,7 @@
                             <outputDirectory>target/generated-sources</outputDirectory>
                             <!-- Usign custom services.xml -->
                             <generateServicesXml>false</generateServicesXml>
-                            <wsdlFile>${project.basedir}/src/main/resources/Service.wsdl</wsdlFile>
+                            <wsdlFile>${project.basedir}/src/main/resources/META-INF/Service.wsdl</wsdlFile>
                             <!-- <unwrap>true</unwrap> -->
                             <namespaceURIs>
                                 <namespaceURI>
@@ -67,7 +67,7 @@
                             <options>
                                 <property>
                                     <name>bindingFileName</name>
-                                    <value>${project.basedir}/src/main/resources/binding.xjb</value>
+                                    <value>${project.basedir}/src/main/resources/META-INF/binding.xjb</value>
                                 </property>
                                 <!-- generate toString methods -->
                                 <property>
@@ -109,6 +109,7 @@
                         <groupId>org.apache.axis2</groupId>
                         <artifactId>axis2-codegen</artifactId>
                         <version>${apache.axis2.version}</version>
+                        <scope>provided</scope>
                     </dependency>
                     <dependency>
                         <groupId>org.jvnet.jaxb2_commons</groupId>
@@ -156,8 +157,7 @@
                         </goals>
                         <configuration>
                             <servicesXmlFile>${project.basedir}/src/main/resources/META-INF/services.xml</servicesXmlFile>
-                            <wsdlFile>${project.basedir}/src/main/resources/Service.wsdl</wsdlFile>
-                            <classesDirectory>target/generated-sources</classesDirectory>
+                            <wsdlFile>${project.basedir}/src/main/resources/META-INF/Service.wsdl</wsdlFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -186,21 +186,25 @@
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2-kernel</artifactId>
             <version>${apache.axis2.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2-transport-local</artifactId>
             <version>${apache.axis2.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2-transport-http</artifactId>
             <version>${apache.axis2.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.axis2</groupId>
             <artifactId>axis2-adb-codegen</artifactId>
             <version>${apache.axis2.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
     	    <groupId>joda-time</groupId>
