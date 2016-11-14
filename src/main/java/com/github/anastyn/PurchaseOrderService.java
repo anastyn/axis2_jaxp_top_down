@@ -9,11 +9,17 @@ import javax.validation.Validator;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * The service entry point.
+ */
 public class PurchaseOrderService implements PurchaseOrderServiceSkeletonInterface {
 
-    // It is save to cache a validator instance
+    /** It is save to cache a validator instance */
     private static final Validator beanValidator;
 
+    /**
+     * Initialize the Bean Validator which will be used to validate incoming requests.
+     */
     static {
         beanValidator = Validation.buildDefaultValidatorFactory().getValidator();
     }

@@ -1,3 +1,8 @@
+<!-- 
+    Fine-grained control over the code generation. 
+    Shows how to configure JAXB extentions 
+    and put custom annotations on top of the generated java elements.
+-->
 <jaxb:bindings
 	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -16,6 +21,7 @@
     </jaxb:globalBindings>
 
     <jaxb:bindings schemaLocation="service_schema.xsd" node="/xsd:schema">
+
         <!--javax.validation.constraints.NotNull annotation for required elements -->
         <jaxb:bindings node="//xsd:complexType/xsd:all/xsd:element[(not(@minOccurs) or @minOccurs='1')]" multiple="true" required="false">
             <annox:annotate target="field">

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>axis2_jaxp_top_down</groupId>
+    <groupId>com.github.anastyn</groupId>
     <artifactId>axis2_jaxp_top_down</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <!-- dependency versions -->
         <jaxb2.basics.version>0.6.2</jaxb2.basics.version>
         <jaxb2.basics.annotate.version>0.6.3</jaxb2.basics.annotate.version>
         <javax.validation.version>1.0.0.GA</javax.validation.version>
@@ -28,6 +29,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.0</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -109,7 +111,6 @@
                         <groupId>org.apache.axis2</groupId>
                         <artifactId>axis2-codegen</artifactId>
                         <version>${apache.axis2.version}</version>
-                        <scope>provided</scope>
                     </dependency>
                     <dependency>
                         <groupId>org.jvnet.jaxb2_commons</groupId>
